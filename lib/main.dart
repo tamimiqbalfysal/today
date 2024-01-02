@@ -5,10 +5,20 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class
+
+MyApp
+
+    extends
+
+    StatelessWidget
+
+{
   const MyApp({super.key});
 
   @override
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -17,10 +27,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false, // Remove the debug banner
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -40,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _handleBookmarkedProducts(List<Product> products) {
+  void _handleBookmarkedProducts(List<Product> newProducts) {
     setState(() {
-      bookmarkedProducts = products;
+      bookmarkedProducts.addAll(newProducts); // Add new products to the existing list
     });
   }
 
@@ -57,12 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
+            // Drawer header removed
             ListTile(
               title: Text('Item 1'),
               onTap: () {}, // Handle item 1 onTap
@@ -80,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ).then((value) => _handleBookmarkedProducts(value));
               },
             ),
-            // ... Add ListTiles for bookmarked products
+            // Display bookmarked products directly
             ...bookmarkedProducts.map((product) => ListTile(
               title: Text(product.name),
               onTap: () {}, // Handle bookmarked product onTap
