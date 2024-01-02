@@ -16,6 +16,7 @@ class _NewPageState extends State<NewPage> {
 
   final List<Product> selectedProducts = [];
   String searchQuery = '';
+  String bookmarkedProductsText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +57,25 @@ class _NewPageState extends State<NewPage> {
               },
             ),
           ),
+          ElevatedButton(
+            onPressed: bookmarkSelectedProducts,
+            child: Text('Bookmark'),
+          ),
+          Text(bookmarkedProductsText)
         ],
       ),
     );
+  }
+
+  void bookmarkSelectedProducts() {
+    setState(() {
+      bookmarkedProductsText = 'Selected Products:\n';
+      for (final product in selectedProducts) {
+        bookmarkedProductsText += '${product.name}\n';
+      }
+
+      Navigator.pop(context, selectedProducts);
+    });
   }
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'new_page.dart'; // Import the NewPage class
+import 'new_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<Product> bookmarkedProducts = [];
 
   void _incrementCounter() {
     setState(() {
@@ -39,9 +40,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _handleBookmarkedProducts(List<Product> products) {
+    setState(() {
+      bookmarkedProducts = products;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -63,19 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: Text('New Page'),
               onTap: () {
-                // Navigate to the new page when the button is tapped
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => NewPage()),
-                );
+                ).then((value) => _handleBookmarkedProducts(value));
               },
             ),
+            // ... Add ListTiles for bookmarked products
+            ...bookmarkedProducts.map((product) => ListTile(
+              title: Text(product.name),
+              onTap: () {}, // Handle bookmarked product onTap
+            )),
           ],
         ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
       ),
       body: Center(
         child: Column(
