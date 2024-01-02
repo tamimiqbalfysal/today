@@ -5,20 +5,10 @@ void main() {
   runApp(const MyApp());
 }
 
-class
-
-MyApp
-
-    extends
-
-    StatelessWidget
-
-{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-
-
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -31,6 +21,7 @@ MyApp
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -69,15 +60,21 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // Drawer header removed
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Findit'),
               onTap: () {}, // Handle item 1 onTap
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Others'),
               onTap: () {}, // Handle item 2 onTap
             ),
+            // Display bookmarked products directly, but not the "More" option
+            ...bookmarkedProducts.map((product) => ListTile(
+              title: Text(product.name),
+              onTap: () {}, // Handle bookmarked product onTap
+            )),
+            // Always place the "More" option at the bottom
             ListTile(
-              title: Text('New Page'),
+              title: Text('More'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -85,11 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ).then((value) => _handleBookmarkedProducts(value));
               },
             ),
-            // Display bookmarked products directly
-            ...bookmarkedProducts.map((product) => ListTile(
-              title: Text(product.name),
-              onTap: () {}, // Handle bookmarked product onTap
-            )),
           ],
         ),
       ),

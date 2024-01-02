@@ -9,9 +9,9 @@ class NewPage extends StatefulWidget {
 
 class _NewPageState extends State<NewPage> {
   final List<Product> products = [
-    Product(name: 'Product 1'),
-    Product(name: 'Product 2'),
-    Product(name: 'Product 3'),
+    Product(name: 'Facebook'),
+    Product(name: 'Youtube'),
+    Product(name: 'Others'),
   ];
 
   final List<Product> selectedProducts = [];
@@ -22,7 +22,7 @@ class _NewPageState extends State<NewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Products'),
+        title: Text('Select Apps'),
       ),
       body: Column(
         children: [
@@ -31,7 +31,7 @@ class _NewPageState extends State<NewPage> {
             child: TextField(
               onChanged: (value) => setState(() => searchQuery = value),
               decoration: InputDecoration(
-                hintText: 'Search products',
+                hintText: 'Search Apps',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
