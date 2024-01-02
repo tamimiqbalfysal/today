@@ -1,54 +1,69 @@
 import 'package:flutter/material.dart';
 
 class NewPage extends StatefulWidget {
+  const NewPage({super.key});
+
   @override
-  _NewPageState createState() => _NewPageState();
+  State<NewPage> createState() => _NewPageState();
 }
 
 class _NewPageState extends State<NewPage> {
-  String _pageText = 'Welcome to the new paggge!';
-  List<String> _items = ['Products 1', 'Products 2', 'Products 3']; // Define your list of items
-  String _searchQuery = ''; // Store the search query
+  final List<Product> products = [
+    Product(name: 'Product 1'),
+    Product(name: 'Product 2'),
+    Product(name: 'Product 3'),
+  ];
+
+  final List<Product> selectedProducts = [];
+  String searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Page'),
+        title: Text('Select Products'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(hintText: 'Search'),
-              onChanged: (query) {
-                setState(() {
-                  _searchQuery = query;
-                });
-              },
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  final item = _items[index];
-                  if (_searchQuery.isEmpty ||
-                      item.toLowerCase().contains(_searchQuery.toLowerCase())) {
-                    return ListTile(
-                      title: Text(item),
-                      onTap: () {
-                        // Handle item tap (e.g., display details, navigate)
-                      },
-                    );
-                  } else {
-                    return Container(); // Hide if not matching search query
-                  }
-                },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) => setState(() => searchQuery = value),
+              decoration: InputDecoration(
+                hintText: 'Search products',
+                prefixIcon: Icon(Icons.search),
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: products.where((p) => p.name.toLowerCase().contains(searchQuery.toLowerCase())).length,
+              itemBuilder: (context, index) {
+                final product = products.where((p) => p.name.toLowerCase().contains(searchQuery.toLowerCase())).toList()[index];
+                return CheckboxListTile(
+                  title: Text(product.name),
+                  value: selectedProducts.contains(product),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value!) {
+                        selectedProducts.add(product);
+                      } else {
+                        selectedProducts.remove(product);
+                      }
+                    });
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+class Product {
+  final String name;
+
+  Product({required this.name});
 }
