@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Today'),
       debugShowCheckedModeBanner: false, // Remove the debug banner
     );
   }
@@ -47,11 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _removeTopItem() {
+    if (bookmarkedProducts.isNotEmpty) {
+      setState(() {
+        bookmarkedProducts.removeAt(0); // Remove the first item
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.green[800], // Dark green AppBar
         title: Text(widget.title),
       ),
       endDrawer: Drawer(
@@ -72,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(product.name),
               onTap: () {}, // Handle bookmarked product onTap
             )),
-            // Always place the "More" option at the bottom
+            // Always place the "More" option above the "Remove" button
             ListTile(
               title: Text('More'),
               onTap: () {
@@ -81,6 +89,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => NewPage()),
                 ).then((value) => _handleBookmarkedProducts(value));
               },
+            ),
+            // Remove button at the bottom
+            ListTile(
+              title: Text('Remove'),
+              onTap: _removeTopItem,
             ),
           ],
         ),
