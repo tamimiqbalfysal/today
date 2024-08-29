@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'new_page.dart';
+import 'findit_page.dart'; // Import the new page
 
 void main() {
   runApp(const MyApp());
@@ -69,7 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
             // Drawer header removed
             ListTile(
               title: Text('Findit'),
-              onTap: () {}, // Handle item 1 onTap
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FinditPage()), // Navigate to FinditPage
+                );
+              },
             ),
             ListTile(
               title: Text('Others'),
