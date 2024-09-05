@@ -76,10 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-            ListTile(
-              title: Text('Others'),
-              onTap: () {}, // Handle item 2 onTap
-            ),
             // Display bookmarked products directly, but not the "More" option
             ...bookmarkedProducts.map((product) => ListTile(
               title: Text(product.name),
