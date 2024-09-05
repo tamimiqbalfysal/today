@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'thanku_g_page.dart'; // Import the ThankuGPage
 
 class NewPage extends StatefulWidget {
   const NewPage({super.key});
@@ -9,9 +10,9 @@ class NewPage extends StatefulWidget {
 
 class _NewPageState extends State<NewPage> {
   final List<Product> products = [
-    Product(name: 'Facebook'),
-    Product(name: 'Youtube'),
-    Product(name: 'Others'),
+    Product(name: 'Thanku G'),
+    Product(name: 'Agami'),
+    Product(name: 'X'),
   ];
 
   final List<Product> selectedProducts = [];
@@ -41,18 +42,30 @@ class _NewPageState extends State<NewPage> {
               itemCount: products.where((p) => p.name.toLowerCase().contains(searchQuery.toLowerCase())).length,
               itemBuilder: (context, index) {
                 final product = products.where((p) => p.name.toLowerCase().contains(searchQuery.toLowerCase())).toList()[index];
-                return CheckboxListTile(
-                  title: Text(product.name),
-                  value: selectedProducts.contains(product),
-                  onChanged: (value) {
-                    setState(() {
-                      if (value!) {
-                        selectedProducts.add(product);
-                      } else {
-                        selectedProducts.remove(product);
-                      }
-                    });
+                return GestureDetector(
+                  onTap: () {
+                    if (product.name == 'Thanku G') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ThankuGPage()),
+                      );
+                    }
                   },
+                  child: ListTile(
+                    title: Text(product.name),
+                    leading: Checkbox(
+                      value: selectedProducts.contains(product),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value!) {
+                            selectedProducts.add(product);
+                          } else {
+                            selectedProducts.remove(product);
+                          }
+                        });
+                      },
+                    ),
+                  ),
                 );
               },
             ),

@@ -51,53 +51,58 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.yellow, width: 1.0), // Add yellow border
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            // Drawer header removed
-            ListTile(
-              title: Text('Today'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TodayPage()), // Navigate to TodayPage
-                );
-              },
-            ),
-            // Display bookmarked products directly, but not the "More" option
-            ...bookmarkedProducts.map((product) => ListTile(
-              title: Text(product.name),
-              onTap: () {}, // Handle bookmarked product onTap
-            )),
-            // Always place the "More" option above the "Remove" button
-            ListTile(
-              title: Text('More'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NewPage()),
-                ).then((value) => _handleBookmarkedProducts(value));
-              },
-            ),
-            // Remove button at the bottom
-            ListTile(
-              title: Text('Remove'),
-              onTap: _removeTopItem,
-            ),
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Removed the Text widget displaying the counter
-          ],
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // Drawer header removed
+              ListTile(
+                title: Text('Today'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TodayPage()), // Navigate to TodayPage
+                  );
+                },
+              ),
+              // Display bookmarked products directly, but not the "More" option
+              ...bookmarkedProducts.map((product) => ListTile(
+                title: Text(product.name),
+                onTap: () {}, // Handle bookmarked product onTap
+              )),
+              // Always place the "More" option above the "Remove" button
+              ListTile(
+                title: Text('More'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewPage()),
+                  ).then((value) => _handleBookmarkedProducts(value));
+                },
+              ),
+              // Remove button at the bottom
+              ListTile(
+                title: Text('Remove'),
+                onTap: _removeTopItem,
+              ),
+            ],
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Removed the Text widget displaying the counter
+            ],
+          ),
         ),
       ),
     );
