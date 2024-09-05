@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'new_page.dart';
-import 'findit_page.dart'; // Import the new page
+import 'today_page.dart'; // Import the updated page
 
 void main() {
   runApp(const MyApp());
@@ -68,11 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // Drawer header removed
             ListTile(
-              title: Text('Findit'),
+              title: Text('Today'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FinditPage()), // Navigate to FinditPage
+                  MaterialPageRoute(builder: (context) => TodayPage()), // Navigate to TodayPage
                 );
               },
             ),
