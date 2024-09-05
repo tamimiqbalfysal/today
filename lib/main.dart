@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'new_page.dart';
-import 'today_page.dart'; // Import the updated page
+import 'today_page.dart';
+import 'thanku_g_page.dart';
+import 'product.dart'; // Import the Product class
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Product> bookmarkedProducts = [];
+  List<Product> bookmarkedProducts = [Product(name: 'Thanku G')];
 
   void _handleBookmarkedProducts(List<Product> newProducts) {
     setState(() {
@@ -42,62 +44,74 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _removeTopItem() {
-    if (bookmarkedProducts.isNotEmpty) {
-      setState(() {
-        bookmarkedProducts.removeAt(0); // Remove the first item
-      });
-    }
+    setState(() {
+      if (bookmarkedProducts.isNotEmpty) {
+        bookmarkedProducts.removeAt(0); // Remove the first item in the list
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.yellow, width: 1.0), // Add yellow border
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            // Drawer header removed
-            ListTile(
-              title: Text('Today'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TodayPage()), // Navigate to TodayPage
-                );
-              },
-            ),
-            // Display bookmarked products directly, but not the "More" option
-            ...bookmarkedProducts.map((product) => ListTile(
-              title: Text(product.name),
-              onTap: () {}, // Handle bookmarked product onTap
-            )),
-            // Always place the "More" option above the "Remove" button
-            ListTile(
-              title: Text('More'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NewPage()),
-                ).then((value) => _handleBookmarkedProducts(value));
-              },
-            ),
-            // Remove button at the bottom
-            ListTile(
-              title: Text('Remove'),
-              onTap: _removeTopItem,
-            ),
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Removed the Text widget displaying the counter
-          ],
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // Drawer header removed
+              ListTile(
+                title: Text('Today'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TodayPage()), // Navigate to TodayPage
+                  );
+                },
+              ),
+              // Display bookmarked products directly, but not the "More" option
+              ...bookmarkedProducts.map((product) => ListTile(
+                title: Text(product.name),
+                onTap: () {
+                  if (product.name == 'Thanku G') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ThankuGPage()), // Navigate to ThankuGPage
+                    );
+                  }
+                },
+              )),
+              // Always place the "More" option above the "Remove" button
+              ListTile(
+                title: Text('More'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewPage()),
+                  ).then((value) => _handleBookmarkedProducts(value));
+                },
+              ),
+              // Remove button at the bottom
+              ListTile(
+                title: Text('Remove'),
+                onTap: _removeTopItem,
+              ),
+            ],
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Removed the Text widget displaying the counter
+            ],
+          ),
         ),
       ),
     );
