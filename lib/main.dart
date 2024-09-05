@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Today'),
+      home: const MyHomePage(title: ''),
       debugShowCheckedModeBanner: false, // Remove the debug banner
     );
   }
