@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: ''),
@@ -27,23 +27,22 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   List<Product> bookmarkedProducts = [Product(name: 'Thanku G')];
 
-  void _handleBookmarkedProducts(List<Product> newProducts) {
+  void handleBookmarkedProducts(List<Product> newProducts) {
     setState(() {
       bookmarkedProducts.addAll(newProducts); // Add new products to the existing list
     });
   }
 
-  void _removeTopItem() {
+  void removeTopItem() {
     setState(() {
       if (bookmarkedProducts.isNotEmpty) {
         bookmarkedProducts.removeAt(0); // Remove the first item in the list
@@ -60,12 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          iconTheme: IconThemeData(color: Colors.black), // Change drawer icon color to yellow
         ),
         endDrawer: Drawer(
+          backgroundColor: Colors.yellow, // Change drawer color to yellow
           child: ListView(
             padding: EdgeInsets.zero,
-            children: <Widget>[
-              // Drawer header removed
+            children: [
               ListTile(
                 title: Text('Today'),
                 onTap: () {
@@ -94,13 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => NewPage()),
-                  ).then((value) => _handleBookmarkedProducts(value));
+                  ).then((value) => handleBookmarkedProducts(value));
                 },
               ),
               // Remove button at the bottom
               ListTile(
                 title: Text('Remove'),
-                onTap: _removeTopItem,
+                onTap: removeTopItem,
               ),
             ],
           ),
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               // Removed the Text widget displaying the counter
             ],
           ),
