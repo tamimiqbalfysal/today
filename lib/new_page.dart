@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'thanku_g_page.dart'; // Import the ThankuGPage
+import 'product.dart'; // Import the Product class
+import 'thanku_g_page.dart'; // Import the ThankuGPage class
 
 class NewPage extends StatefulWidget {
   const NewPage({super.key});
@@ -90,10 +91,4 @@ class _NewPageState extends State<NewPage> {
       Navigator.pop(context, selectedProducts);
     });
   }
-}
-
-class Product {
-  final String name;
-
-  Product({required this.name});
 }

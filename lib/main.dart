@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'new_page.dart';
-import 'today_page.dart'; // Import the updated page
+import 'today_page.dart';
+import 'thanku_g_page.dart';
+import 'product.dart'; // Import the Product class
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Product> bookmarkedProducts = [];
+  List<Product> bookmarkedProducts = [Product(name: 'Thanku G')];
 
   void _handleBookmarkedProducts(List<Product> newProducts) {
     setState(() {
@@ -42,11 +44,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _removeTopItem() {
-    if (bookmarkedProducts.isNotEmpty) {
-      setState(() {
-        bookmarkedProducts.removeAt(0); // Remove the first item
-      });
-    }
+    setState(() {
+      bookmarkedProducts.removeWhere((product) => product.name == 'Thanku G'); // Remove the "Thanku G" item
+    });
   }
 
   @override
@@ -76,7 +76,14 @@ class _MyHomePageState extends State<MyHomePage> {
               // Display bookmarked products directly, but not the "More" option
               ...bookmarkedProducts.map((product) => ListTile(
                 title: Text(product.name),
-                onTap: () {}, // Handle bookmarked product onTap
+                onTap: () {
+                  if (product.name == 'Thanku G') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ThankuGPage()), // Navigate to ThankuGPage
+                    );
+                  }
+                },
               )),
               // Always place the "More" option above the "Remove" button
               ListTile(
