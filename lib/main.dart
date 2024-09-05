@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.yellow, width: 1.0), // Add yellow border
+        border: Border.all(color: Colors.yellow, width: 10.0), // Add yellow border
       ),
       child: Scaffold(
         appBar: AppBar(
