@@ -45,7 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _removeTopItem() {
     setState(() {
-      bookmarkedProducts.removeWhere((product) => product.name == 'Thanku G'); // Remove the "Thanku G" item
+      if (bookmarkedProducts.isNotEmpty) {
+        bookmarkedProducts.removeAt(0); // Remove the first item in the list
+      }
     });
   }
 
